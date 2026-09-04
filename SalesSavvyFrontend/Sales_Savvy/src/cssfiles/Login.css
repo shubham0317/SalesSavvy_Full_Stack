@@ -1,0 +1,378 @@
+.login-page {
+  min-height: 100vh;
+  background: #0b1324;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  color: white;
+}
+
+/* ================================
+   BACKGROUND
+================================ */
+
+.ecommerce-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Floating Items */
+
+.floating-item {
+  position: absolute;
+  font-size: 38px;
+  opacity: 0.15;
+  animation: float 6s ease-in-out infinite;
+}
+
+.item-one {
+  top: 12%;
+  left: 10%;
+}
+
+.item-two {
+  top: 25%;
+  right: 12%;
+}
+
+.item-three {
+  bottom: 18%;
+  left: 15%;
+}
+
+.item-four {
+  bottom: 25%;
+  right: 15%;
+}
+
+.item-five {
+  top: 55%;
+  left: 6%;
+}
+
+.item-six {
+  top: 10%;
+  right: 30%;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Floating Cards */
+
+.floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  opacity: 0.8;
+}
+
+.floating-card span {
+  font-size: 28px;
+}
+
+.floating-card strong {
+  display: block;
+  font-size: 14px;
+}
+
+.floating-card small {
+  display: block;
+  margin-top: 3px;
+  color: #aab4c8;
+  font-size: 11px;
+}
+
+.card-one {
+  top: 22%;
+  left: 5%;
+}
+
+.card-two {
+  bottom: 20%;
+  right: 5%;
+}
+
+/* Glow */
+
+.glow {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+}
+
+.glow-one {
+  background: #2563eb;
+  top: -100px;
+  left: -100px;
+}
+
+.glow-two {
+  background: #7c3aed;
+  bottom: -120px;
+  right: -100px;
+}
+
+/* ================================
+   LOGIN CARD
+================================ */
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 430px;
+  padding: 40px;
+  background: rgba(18, 27, 46, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(15px);
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-box {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 15px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.login-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.login-header p {
+  margin-top: 8px;
+  color: #9ca8bc;
+  font-size: 14px;
+}
+
+/* ================================
+   FORM
+================================ */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1px solid #344158;
+  background: #111b2e;
+  color: white;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.form-group input::placeholder {
+  color: #69758b;
+}
+
+.form-group input:focus {
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1);
+}
+
+/* Password */
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 70px;
+}
+
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #6f91ff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ================================
+   FORGOT PASSWORD
+================================ */
+
+.forgot-password {
+  text-align: right;
+  margin-top: -8px;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  color: #7c9cff;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   ERRORS
+================================ */
+
+.error-message {
+  display: block;
+  margin-top: 6px;
+  color: #ff7b7b;
+  font-size: 12px;
+}
+
+.server-error {
+  padding: 11px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: rgba(255, 70, 70, 0.1);
+  border: 1px solid rgba(255, 70, 70, 0.2);
+  color: #ff8585;
+  text-align: center;
+  font-size: 13px;
+}
+
+.success-message {
+  padding: 11px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: rgba(60, 200, 120, 0.1);
+  border: 1px solid rgba(60, 200, 120, 0.2);
+  color: #63e69a;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* ================================
+   LOGIN BUTTON
+================================ */
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================================
+   REGISTER LINK
+================================ */
+
+.register-link {
+  text-align: center;
+  margin-top: 25px;
+  color: #8d99ad;
+  font-size: 13px;
+}
+
+.register-link a {
+  margin-left: 5px;
+  color: #7c9cff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 600px) {
+
+  .login-page {
+    padding: 20px;
+  }
+
+  .login-card {
+    padding: 30px 22px;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+  .floating-item {
+    font-size: 28px;
+  }
+
+}

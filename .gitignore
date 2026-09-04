@@ -1,0 +1,41 @@
+# =========================
+# Frontend
+# =========================
+SalesSavvyFrontend/Sales_Savvy/node_modules/
+SalesSavvyFrontend/Sales_Savvy/dist/
+SalesSavvyFrontend/Sales_Savvy/.env
+
+# =========================
+# Backend
+# =========================
+Salessavvy_app/target/
+
+# =========================
+# Environment files
+# =========================
+.env
+*.env
+
+# =========================
+# STS / Eclipse
+# =========================
+Salessavvy_app/.classpath
+Salessavvy_app/.project
+Salessavvy_app/.settings/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# IntelliJ
+# =========================
+.idea/
+*.iml
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
