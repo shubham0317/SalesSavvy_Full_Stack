@@ -84,9 +84,8 @@ function Login() {
         setMessage(data.message || "Login successful!");
 
         // Redirect after successful login
-        setTimeout(() => {
+        
           window.location.href = "/customerhome";
-        }, 1000);
 
       } else {
         setMessage(
