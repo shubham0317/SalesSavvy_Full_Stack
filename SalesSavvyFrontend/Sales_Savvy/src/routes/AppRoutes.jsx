@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import CustomerHomePage from "../Pages/CustomerHomePage";
+import CartPage from "../Pages/CartPage";
 
 function AppRoutes() {
     return (
@@ -26,10 +27,16 @@ function AppRoutes() {
                 element={<Register />}
             />
 
-            {/* Customer routes */}
+            {/* Customer Home */}
             <Route
                 path="/customerhome"
                 element={<CustomerHomePage />}
+            />
+
+            {/* Cart */}
+            <Route
+                path="/cart"
+                element={<CartPage />}
             />
 
             {/* Invalid route */}
