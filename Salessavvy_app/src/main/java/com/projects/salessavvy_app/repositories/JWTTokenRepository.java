@@ -4,10 +4,13 @@ package com.projects.salessavvy_app.repositories;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.projects.salessavvy_app.entities.JWTToken;
+
+import jakarta.transaction.Transactional;
 
 public interface JWTTokenRepository extends JpaRepository<JWTToken,Integer> {
 
@@ -15,6 +18,11 @@ public interface JWTTokenRepository extends JpaRepository<JWTToken,Integer> {
 	JWTToken findByUserId(@Param("userId") int userId);
 	
 	Optional<JWTToken> findByToken(String token);
+	
+	@Modifying
+	@Transactional
+	@Query("DELETE FROM JWTToken t WHERE t.user.userId = :userId")
+	void deleteByUserId(@Param("userId") int userId);
 	
 }
 
