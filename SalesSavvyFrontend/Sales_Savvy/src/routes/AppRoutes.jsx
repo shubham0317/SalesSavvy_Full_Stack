@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import CustomerHomePage from "../Pages/CustomerHomePage";
 import CartPage from "../Pages/CartPage";
+import OrdersPage from "../Pages/OrdersPage";
 
 function AppRoutes() {
     return (
@@ -37,6 +38,12 @@ function AppRoutes() {
             <Route
                 path="/cart"
                 element={<CartPage />}
+            />
+
+            {/* Orders */}
+            <Route
+                path="/orders"
+                element={<OrdersPage />}
             />
 
             {/* Invalid route */}
