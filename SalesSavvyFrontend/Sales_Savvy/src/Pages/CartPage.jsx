@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -56,9 +56,6 @@ function CartPage() {
     const fetchCartItems = async () => {
 
         try {
-
-            setLoading(true);
-            setError("");
 
             const response = await fetch(
                 `${API_URL}/api/cart/items`,

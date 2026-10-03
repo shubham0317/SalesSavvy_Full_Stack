@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import userImg from "../assets/user.png"
 
 function ProfileDropdown({ username }) {

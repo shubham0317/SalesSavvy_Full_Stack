@@ -1,5 +1,3 @@
-import React from "react";
-
 import CartIcon from "./CartIcon";
 import ProfileDropdown from "./ProfileDropdown";
 import Logo from "./Logo";

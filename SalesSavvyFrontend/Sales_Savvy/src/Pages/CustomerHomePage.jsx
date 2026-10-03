@@ -1,4 +1,4 @@
-import React, {
+import {
     useState,
     useEffect
 } from "react";
@@ -17,51 +17,12 @@ function CustomerHomePage() {
 
     const [cartCount, setCartCount] = useState(0);
 
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(() => localStorage.getItem("username") || "");
 
     const [loading, setLoading] = useState(true);
 
     const [error, setError] = useState("");
 
-
-    // ================================
-    // GET USERNAME
-    // ================================
-
-    useEffect(() => {
-
-        const storedUsername =
-            localStorage.getItem("username");
-
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-
-    }, []);
-
-
-    // ================================
-    // FETCH PRODUCTS
-    // ================================
-
-    useEffect(() => {
-
-        fetchProducts("Shirts");
-
-    }, []);
-
-
-    // ================================
-    // FETCH CART COUNT
-    // ================================
-
-    useEffect(() => {
-
-        if (username) {
-            fetchCartCount();
-        }
-
-    }, [username]);
 
 
     // ================================
@@ -69,9 +30,6 @@ function CustomerHomePage() {
     // ================================
 
     const fetchProducts = async (category) => {
-
-        setLoading(true);
-        setError("");
 
         try {
 
@@ -264,6 +222,15 @@ function CustomerHomePage() {
         }
     };
 
+    useEffect(() => {
+        fetchProducts("Shirts");
+    }, []);
+
+    useEffect(() => {
+        if (username) {
+            fetchCartCount();
+        }
+    }, [username]);
 
     // ================================
     // CATEGORY CLICK

@@ -1,5 +1,3 @@
-import React from "react";
-
 function ProductList({ products, onAddToCart }) {
 
     if (!products || products.length === 0) {

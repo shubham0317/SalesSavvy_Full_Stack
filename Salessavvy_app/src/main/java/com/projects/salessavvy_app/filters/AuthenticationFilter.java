@@ -253,6 +253,7 @@ public class AuthenticationFilter implements Filter {
          */
 
         if (requestURI.startsWith("/api/")
+        		&& !requestURI.equals("/api/auth/logout")
                 && role != Role.CUSTOMER) {
 
             sendErrorResponse(

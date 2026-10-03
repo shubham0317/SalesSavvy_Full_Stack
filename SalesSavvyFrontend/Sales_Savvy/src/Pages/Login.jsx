@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../cssfiles/Login.css";
 import { Link } from "react-router-dom";
 
@@ -85,7 +85,11 @@ function Login() {
 
         // Redirect after successful login
         
-          window.location.href = "/customerhome";
+           if (data.role === "ADMIN") {
+          window.location.href = "/admin";
+           } else {
+            window.location.href = "/customerhome";
+           }
 
       } else {
         setMessage(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../cssfiles/OrderPage.css";
@@ -25,9 +25,6 @@ export default function OrdersPage() {
     const fetchOrders = async () => {
 
         try {
-
-            setLoading(true);
-            setError("");
 
             const response = await fetch(`${API_URL}/api/orders`, {
                 method: "GET",

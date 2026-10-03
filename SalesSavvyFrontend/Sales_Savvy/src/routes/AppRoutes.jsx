@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../Pages/Login";
@@ -6,6 +5,7 @@ import Register from "../Pages/Register";
 import CustomerHomePage from "../Pages/CustomerHomePage";
 import CartPage from "../Pages/CartPage";
 import OrdersPage from "../Pages/OrdersPage";
+import AdminDashboard from "../Pages/AdminDashboard";
 
 function AppRoutes() {
     return (
@@ -44,6 +44,12 @@ function AppRoutes() {
             <Route
                 path="/orders"
                 element={<OrdersPage />}
+            />
+
+            {/* Admin Dashboard */}
+              <Route
+                path="/admin"
+                element={<AdminDashboard />}
             />
 
             {/* Invalid route */}
