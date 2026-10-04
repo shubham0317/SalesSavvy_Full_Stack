@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../cssfiles/Login.css";
-import { Link } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -46,11 +49,9 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setMessage("");
 
     const validationErrors = validateForm();
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -59,51 +60,23 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-
-        // Store JWT token if backend returns one
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-        }
-
+      const result = await login(formData);
+      if (result.success) {
         setErrors({});
-        setMessage(data.message || "Login successful!");
+        setMessage(result.message || "Login successful!");
 
-        // Redirect after successful login
-        
-           if (data.role === "ADMIN") {
-          window.location.href = "/admin";
-           } else {
-            window.location.href = "/customerhome";
-           }
-
+        // Seamless route navigation based on user role
+        if (result.role === "ADMIN") {
+          navigate("/admin");
+        } else {
+          navigate("/customerhome");
+        }
       } else {
-        setMessage(
-          data.error || "Invalid username or password."
-        );
+        setMessage(result.error || "Invalid username or password.");
       }
-
     } catch (error) {
       console.error("Login error:", error);
-
-      setMessage(
-        "Unable to connect to server. Please check whether Spring Boot is running."
-      );
-
+      setMessage("Unable to connect to server. Please check backend status.");
     } finally {
       setLoading(false);
     }
@@ -111,10 +84,8 @@ function Login() {
 
   return (
     <div className="login-page">
-
       {/* Background */}
       <div className="ecommerce-background">
-
         <div className="floating-item item-one">🛍️</div>
         <div className="floating-item item-two">📦</div>
         <div className="floating-item item-three">🛒</div>
@@ -140,37 +111,25 @@ function Login() {
 
         <div className="glow glow-one"></div>
         <div className="glow glow-two"></div>
-
       </div>
 
       {/* Login Card */}
       <div className="login-card">
-
         {/* Header */}
         <div className="login-header">
-
           <div className="logo-box">
             <span>L</span>
           </div>
 
           <h1>Welcome Back</h1>
-
-          <p>
-            Login to access your account
-          </p>
-
+          <p>Login to access your account</p>
         </div>
 
         {/* Login Form */}
         <form onSubmit={handleSubmit}>
-
           {/* Username */}
           <div className="form-group">
-
-            <label htmlFor="username">
-              Username
-            </label>
-
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
@@ -178,25 +137,17 @@ function Login() {
               placeholder="Enter your username"
               value={formData.username}
               onChange={handleChange}
+              autoComplete="username"
             />
-
             {errors.username && (
-              <span className="error-message">
-                {errors.username}
-              </span>
+              <span className="error-message">{errors.username}</span>
             )}
-
           </div>
 
           {/* Password */}
           <div className="form-group">
-
-            <label htmlFor="password">
-              Password
-            </label>
-
+            <label htmlFor="password">Password</label>
             <div className="password-wrapper">
-
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -204,33 +155,21 @@ function Login() {
                 placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
+                autoComplete="current-password"
               />
 
               <button
                 type="button"
                 className="show-password"
-                onClick={() =>
-                  setShowPassword(!showPassword)
-                }
+                onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
-
             </div>
 
             {errors.password && (
-              <span className="error-message">
-                {errors.password}
-              </span>
+              <span className="error-message">{errors.password}</span>
             )}
-
-          </div>
-
-          {/* Forgot Password */}
-          <div className="forgot-password">
-            <a href="/forgot-password">
-              Forgot Password?
-            </a>
           </div>
 
           {/* Server Message */}
@@ -247,28 +186,17 @@ function Login() {
           )}
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="login-button"
-            disabled={loading}
-          >
+          <button type="submit" className="login-button" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
-
             {!loading && <span>→</span>}
           </button>
-
         </form>
 
         {/* Register Link */}
         <div className="register-link">
-          Don't have an account?
-          <Link to="/register">
-            Register here
-          </Link>
+          Don't have an account? <Link to="/register">Register here</Link>
         </div>
-
       </div>
-
     </div>
   );
 }

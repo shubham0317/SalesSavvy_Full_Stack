@@ -1,43 +1,27 @@
-function CategoryNavigation({
-  onCategoryClick
-}) {
+import { PRODUCT_CATEGORIES } from "../utils/constants";
 
-  const categories = [
-    "Shirts",
-    "Pants",
-    "Accessories",
-    "Mobiles",
-    "Mobile Accessories"
-  ];
-
+function CategoryNavigation({ onCategoryClick, activeCategory }) {
   return (
-
-    <nav className="category-navigation">
-
-      <div className="category-title">
-        Categories
-      </div>
+    <nav className="category-navigation" aria-label="Product categories">
+      <div className="category-title">Categories</div>
 
       <ul className="category-list">
-
-        {categories.map(
-          (category, index) => (
-
+        {PRODUCT_CATEGORIES.map((category) => {
+          const isActive = activeCategory === category;
+          return (
             <li
-              key={index}
-              className="category-item"
-              onClick={() =>
-                onCategoryClick(category)
-              }
+              key={category}
+              className={`category-item ${isActive ? "active" : ""}`}
+              onClick={() => onCategoryClick(category)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && onCategoryClick(category)}
             >
               {category}
             </li>
-
-          )
-        )}
-
+          );
+        })}
       </ul>
-
     </nav>
   );
 }

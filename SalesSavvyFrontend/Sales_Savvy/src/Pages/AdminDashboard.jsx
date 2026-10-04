@@ -2,7 +2,16 @@ import { useState } from "react";
 import CustomModal from "../components/CustomModal";
 import "../cssfiles/AdminDashboard.css";
 import AdminHeader from "../components/AdminHeader";
-import { adminRequest } from "../services/adminApi";
+import {
+  addProduct,
+  deleteProduct,
+  getUserById,
+  modifyUser,
+  getMonthlyBusiness,
+  getDailyBusiness,
+  getYearlyBusiness,
+  getOverallBusiness,
+} from "../services/adminApi";
 
 const cards = [
   {
@@ -12,13 +21,13 @@ const cards = [
     icon: "+",
     type: "addProduct",
   },
-  // {
-  //   title: "Delete Product",
-  //   description: "Remove an existing product from inventory",
-  //   team: "Product Management",
-  //   icon: "×",
-  //   type: "deleteProduct",
-  // },
+  {
+    title: "Delete Product",
+    description: "Remove an existing product from inventory",
+    team: "Product Management",
+    icon: "×",
+    type: "deleteProduct",
+  },
   {
     title: "View User",
     description: "Fetch details of a specific user",
@@ -87,16 +96,13 @@ function AdminDashboard() {
   const handleAddProduct = async (data) => {
     try {
       setLoading(true);
-      const res = await adminRequest("/admin/products/add", {
-        method: "POST",
-        body: {
-          name: data.name,
-          description: data.description,
-          price: Number(data.price),
-          stock: Number(data.stock),
-          categoryId: Number(data.categoryId),
-          imageUrl: data.imageUrl,
-        },
+      const res = await addProduct({
+        name: data.name,
+        description: data.description,
+        price: Number(data.price),
+        stock: Number(data.stock),
+        categoryId: Number(data.categoryId),
+        imageUrl: data.imageUrl,
       });
 
       if (!res.ok) {
@@ -117,42 +123,32 @@ function AdminDashboard() {
   };
 
   // ---------------- DELETE PRODUCT ----------------
-  // const handleDeleteProduct = async (data) => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await adminRequest("/admin/products/delete", {
-  //       method: "DELETE",
-  //       body: {
-  //         productId: Number(data.productId),
-  //       },
-  //     });
+  const handleDeleteProduct = async (data) => {
+    try {
+      setLoading(true);
+      const res = await deleteProduct(data.productId);
 
-  //     if (!res.ok) {
-  //       showError(res.error || "Unable to delete product");
-  //       return;
-  //     }
+      if (!res.ok) {
+        showError(res.error || "Unable to delete product");
+        return;
+      }
 
-  //     setModalData({
-  //       success: typeof res.data === "string" ? res.data : "Product deleted successfully.",
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     showError("Unable to connect to server.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+      setModalData({
+        success: typeof res.data === "string" ? res.data : "Product deleted successfully.",
+      });
+    } catch (error) {
+      console.error(error);
+      showError("Unable to connect to server.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // ---------------- VIEW USER ----------------
   const handleViewUser = async (data) => {
     try {
       setLoading(true);
-      const res = await adminRequest(`/admin/user/getbyid/${data.userId}`, {
-        method: "GET",
-        // body: {
-        //   userId: Number(data.userId),
-        // },
-      });
+      const res = await getUserById(data.userId);
 
       if (!res.ok) {
         showError(res.error || "User not found");
@@ -175,12 +171,7 @@ function AdminDashboard() {
 
       // First step: fetch user
       if (!data.username) {
-        const res = await adminRequest(`/admin/user/getbyid/${data.userId}`, {
-          method: "GET",
-          // body: {
-          //   userId: Number(data.userId),
-          // },
-        });
+        const res = await getUserById(data.userId);
 
         if (!res.ok) {
           showError(res.error || "User not found");
@@ -192,14 +183,11 @@ function AdminDashboard() {
       }
 
       // Second step: update user
-      const res = await adminRequest("/admin/user/modify", {
-        method: "PUT",
-        body: {
-          userId: Number(data.userId),
-          username: data.username,
-          email: data.email,
-          role: data.role,
-        },
+      const res = await modifyUser({
+        userId: Number(data.userId),
+        username: data.username,
+        email: data.email,
+        role: data.role,
       });
 
       if (!res.ok) {
@@ -223,10 +211,7 @@ function AdminDashboard() {
   const handleMonthlyBusiness = async (data) => {
     try {
       setLoading(true);
-      const res = await adminRequest(
-        `/admin/business/monthly?month=${Number(data.month)}&year=${Number(data.year)}`,
-        { method: "GET" }
-      );
+      const res = await getMonthlyBusiness(data.month, data.year);
 
       if (!res.ok) {
         showError(res.error || "Unable to fetch monthly business");
@@ -246,10 +231,7 @@ function AdminDashboard() {
   const handleDailyBusiness = async (data) => {
     try {
       setLoading(true);
-      const res = await adminRequest(
-        `/admin/business/daily?date=${data.date}`,
-        { method: "GET" }
-      );
+      const res = await getDailyBusiness(data.date);
 
       if (!res.ok) {
         showError(res.error || "Unable to fetch daily business");
@@ -269,10 +251,7 @@ function AdminDashboard() {
   const handleYearlyBusiness = async (data) => {
     try {
       setLoading(true);
-      const res = await adminRequest(
-        `/admin/business/yearly?year=${Number(data.year)}`,
-        { method: "GET" }
-      );
+      const res = await getYearlyBusiness(data.year);
 
       if (!res.ok) {
         showError(res.error || "Unable to fetch yearly business");
@@ -292,9 +271,7 @@ function AdminDashboard() {
   const handleOverallBusiness = async () => {
     try {
       setLoading(true);
-      const res = await adminRequest("/admin/business/overall", {
-        method: "GET",
-      });
+      const res = await getOverallBusiness();
 
       if (!res.ok) {
         showError(res.error || "Unable to fetch business");

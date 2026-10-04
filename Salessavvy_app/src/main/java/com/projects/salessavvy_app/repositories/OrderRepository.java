@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.projects.salessavvy_app.entities.Order;
+import com.projects.salessavvy_app.entities.OrderStatus;
 
 
 @Repository
@@ -27,6 +28,6 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     BigDecimal calculateOverallBusiness();
 
     @Query("SELECT o FROM Order o WHERE o.status = :status")
-    List<Order> findAllByStatus(String status);
+    List<Order> findAllByStatus(OrderStatus status);
 	
 }

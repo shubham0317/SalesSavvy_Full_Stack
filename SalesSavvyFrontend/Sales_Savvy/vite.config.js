@@ -4,4 +4,13 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setupTests.js',
+    pool: 'forks',
+    forks: {
+      singleFork: true,
+    },
+  },
 })
