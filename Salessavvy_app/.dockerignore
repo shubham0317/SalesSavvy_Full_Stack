@@ -1,0 +1,23 @@
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Git files
+.git
+.gitignore
+
+# Maven generated files (except the JAR needed for Docker)
+target/*
+!target/*.jar
+
+# IDE files
+.idea
+.vscode
+*.iml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store

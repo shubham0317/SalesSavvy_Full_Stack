@@ -4,7 +4,7 @@ import "../cssfiles/AdminDashboard.css";
 import AdminHeader from "../components/AdminHeader";
 import {
   addProduct,
-  deleteProduct,
+  //deleteProduct,
   getUserById,
   modifyUser,
   getMonthlyBusiness,
@@ -21,13 +21,13 @@ const cards = [
     icon: "+",
     type: "addProduct",
   },
-  {
-    title: "Delete Product",
-    description: "Remove an existing product from inventory",
-    team: "Product Management",
-    icon: "×",
-    type: "deleteProduct",
-  },
+  // {
+  //   title: "Delete Product",
+  //   description: "Remove an existing product from inventory",
+  //   team: "Product Management",
+  //   icon: "×",
+  //   type: "deleteProduct",
+  // },
   {
     title: "View User",
     description: "Fetch details of a specific user",
@@ -123,26 +123,26 @@ function AdminDashboard() {
   };
 
   // ---------------- DELETE PRODUCT ----------------
-  const handleDeleteProduct = async (data) => {
-    try {
-      setLoading(true);
-      const res = await deleteProduct(data.productId);
+  // const handleDeleteProduct = async (data) => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await deleteProduct(data.productId);
 
-      if (!res.ok) {
-        showError(res.error || "Unable to delete product");
-        return;
-      }
+  //     if (!res.ok) {
+  //       showError(res.error || "Unable to delete product");
+  //       return;
+  //     }
 
-      setModalData({
-        success: typeof res.data === "string" ? res.data : "Product deleted successfully.",
-      });
-    } catch (error) {
-      console.error(error);
-      showError("Unable to connect to server.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setModalData({
+  //       success: typeof res.data === "string" ? res.data : "Product deleted successfully.",
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     showError("Unable to connect to server.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // ---------------- VIEW USER ----------------
   const handleViewUser = async (data) => {
