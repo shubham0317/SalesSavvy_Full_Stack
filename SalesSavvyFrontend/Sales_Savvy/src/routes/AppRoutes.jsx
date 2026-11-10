@@ -1,59 +1,64 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import CustomerHomePage from "../Pages/CustomerHomePage";
 import CartPage from "../Pages/CartPage";
 import OrdersPage from "../Pages/OrdersPage";
+import AdminDashboard from "../Pages/AdminDashboard";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
-    return (
-        <Routes>
+  return (
+    <Routes>
+      {/* Default route */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-            {/* Default route */}
-            <Route
-                path="/"
-                element={<Navigate to="/login" replace />}
-            />
+      {/* Authentication routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-            {/* Authentication routes */}
-            <Route
-                path="/login"
-                element={<Login />}
-            />
+      {/* Customer Routes (Protected) */}
+      <Route
+        path="/customerhome"
+        element={
+          <ProtectedRoute requiredRole="CUSTOMER">
+            <CustomerHomePage />
+          </ProtectedRoute>
+        }
+      />
 
-            <Route
-                path="/register"
-                element={<Register />}
-            />
+      <Route
+        path="/cart"
+        element={
+          <ProtectedRoute requiredRole="CUSTOMER">
+            <CartPage />
+          </ProtectedRoute>
+        }
+      />
 
-            {/* Customer Home */}
-            <Route
-                path="/customerhome"
-                element={<CustomerHomePage />}
-            />
+      <Route
+        path="/orders"
+        element={
+          <ProtectedRoute requiredRole="CUSTOMER">
+            <OrdersPage />
+          </ProtectedRoute>
+        }
+      />
 
-            {/* Cart */}
-            <Route
-                path="/cart"
-                element={<CartPage />}
-            />
+      {/* Admin Dashboard (Protected) */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requiredRole="ADMIN">
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
 
-            {/* Orders */}
-            <Route
-                path="/orders"
-                element={<OrdersPage />}
-            />
-
-            {/* Invalid route */}
-            <Route
-                path="*"
-                element={<Navigate to="/login" replace />}
-            />
-
-        </Routes>
-    );
+      {/* Catch-all route */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
+  );
 }
 
 export default AppRoutes;

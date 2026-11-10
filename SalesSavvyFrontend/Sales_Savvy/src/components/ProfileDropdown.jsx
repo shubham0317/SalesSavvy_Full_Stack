@@ -1,96 +1,48 @@
-import React, { useState } from "react";
-import userImg from "../assets/user.png"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import userImg from "../assets/user.png";
 
-function ProfileDropdown({ username }) {
+function ProfileDropdown({ username: propUsername }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { username: contextUsername, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] =
-    useState(false);
+  const username = propUsername || contextUsername || "Guest";
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   const handleLogout = async () => {
-
-    try {
-
-      const response = await fetch(
-        "http://localhost:8080/api/auth/logout",
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
-
-      if (response.ok) {
-
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("username");
-
-        window.location.href = "/login";
-
-      } else {
-
-        console.error("Logout failed");
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Logout error:",
-        error
-      );
-
-    }
+    setIsOpen(false);
+    await logout();
+    navigate("/login");
   };
 
   return (
-
     <div className="profile-dropdown">
-
       <button
+        type="button"
         className="profile-button"
         onClick={toggleDropdown}
+        aria-expanded={isOpen}
       >
-
-        <img
-          src={userImg}
-          alt="User Avatar"
-        />
-
-        <span>
-          {username || "Guest"}
-        </span>
-
-        <span className="profile-arrow">
-          {isOpen ? "▲" : "▼"}
-        </span>
-
+        <img src={userImg} alt="User Avatar" />
+        <span>{username}</span>
+        <span className="profile-arrow">{isOpen ? "▲" : "▼"}</span>
       </button>
 
-
       {isOpen && (
-
         <div className="dropdown-menu">
-
-          <a href="/profile">
-            Profile
-          </a>
-
-          <a href="/orders">
+          <Link to="/orders" onClick={() => setIsOpen(false)}>
             Orders
-          </a>
-
-          <button onClick={handleLogout}>
+          </Link>
+          <button type="button" onClick={handleLogout}>
             Logout
           </button>
-
         </div>
-
       )}
-
     </div>
   );
 }

@@ -14,9 +14,11 @@ import jakarta.transaction.Transactional;
 
 public interface JWTTokenRepository extends JpaRepository<JWTToken,Integer> {
 
+	//cutom qery to find tokens by user id
 	@Query("SELECT t FROM JWTToken t WHERE t.user.userId = :userId")
 	JWTToken findByUserId(@Param("userId") int userId);
 	
+	//find a token by its value
 	Optional<JWTToken> findByToken(String token);
 	
 	@Modifying

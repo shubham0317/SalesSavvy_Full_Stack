@@ -1,12 +1,18 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Logo() {
-  return (
-    <div className="logo">
-      <div className="logo-icon">
-        S
-      </div>
+  const navigate = useNavigate();
 
+  return (
+    <div
+      className="logo"
+      onClick={() => navigate("/customerhome")}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && navigate("/customerhome")}
+      style={{ cursor: "pointer" }}
+    >
+      <div className="logo-icon">S</div>
       <span>SalesSavvy</span>
     </div>
   );
